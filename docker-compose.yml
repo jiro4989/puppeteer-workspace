@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+    puppeteer:
+        build: .
+        container_name: pup
+        tty: true
+        volumes:
+          - .:/opt/data-volume
+        working_dir: "/opt/data-volume"
