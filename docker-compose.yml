@@ -1,10 +1,23 @@
 version: '3'
 
 services:
-    puppeteer:
-        build: .
-        container_name: pup
-        tty: true
-        volumes:
-          - .:/opt/data-volume
-        working_dir: "/opt/data-volume"
+  db:
+    image: mysql:5.7
+    container_name: test_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3310:3306"
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    expose:
+      - 3306
+
+  puppeteer:
+    build: ./dockerfiles/puppeteer
+    container_name: pup
+    tty: true
+    volumes:
+      - .:/opt/data-volume
+    working_dir: "/opt/data-volume"

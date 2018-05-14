@@ -17,3 +17,7 @@ build: clean
 up: build
 	docker-compose up -d
 
+.PHONY: login
+login: up
+	docker exec -it pup /bin/bash
+
