@@ -44,7 +44,5 @@ RUN apt-get update \
 WORKDIR /app
 RUN npm i puppeteer
 
-COPY ../../script/script.js .
-
-#ENTRYPOINT ["node", "/app/script.js"]
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["node", "/app/script.js"]
+#ENTRYPOINT ["tail", "-f", "/dev/null"]

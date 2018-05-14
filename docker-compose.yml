@@ -20,4 +20,5 @@ services:
     tty: true
     volumes:
       - .:/opt/data-volume
+      - ./script/script.js:/app/script.js
     working_dir: "/opt/data-volume"
