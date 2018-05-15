@@ -3,7 +3,7 @@ version: '3'
 services:
   db:
     image: mysql:5.7
-    container_name: test_db
+    container_name: pup_db
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -16,7 +16,7 @@ services:
 
   puppeteer:
     build: ./dockerfiles/puppeteer
-    container_name: pup
+    container_name: pup_app
     tty: true
     volumes:
       - .:/opt/data-volume

@@ -18,6 +18,10 @@ up: build
 	docker-compose up -d
 
 .PHONY: login
-login: up
-	docker exec -it pup /bin/bash
+login:
+	docker exec -it pup_app /bin/bash
+
+.PHONY: login_db
+login_db:
+	docker exec -it pup_db /bin/bash
 
