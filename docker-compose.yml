@@ -18,6 +18,12 @@ services:
     build: ./dockerfiles/puppeteer
     container_name: pup_app
     tty: true
+    environment:
+      DB_HOST: "pup_db"
+      DB_PORT: "3306"
+      DB_USER: "root"
+      DB_PASSWORD: "password"
+      DB_DATABASE: "test_db"
     volumes:
       - .:/opt/data-volume
       - ./script:/app/script
