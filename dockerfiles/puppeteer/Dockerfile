@@ -41,8 +41,10 @@ RUN apt-get update \
       xdg-utils \
       wget
 
-WORKDIR /app
-RUN npm i puppeteer
+RUN apt-get install -y zsh
 
-ENTRYPOINT ["node", "/app/script.js"]
-#ENTRYPOINT ["tail", "-f", "/dev/null"]
+WORKDIR /app
+RUN npm install puppeteer
+RUN npm install mysql
+
+ENTRYPOINT ["/bin/zsh"]

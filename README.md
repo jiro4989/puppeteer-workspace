@@ -18,4 +18,5 @@ make
 
 - [puppeteerでスクレイピング](https://qiita.com/tomi_shinwatec/items/a68cf7840c3da002c6e0)
 - [Dockerコンテナ上でPuppeteerを動かす](https://qiita.com/QUANON/items/59c468adfff0278f20bb)
+- [Node.jsでMySQLを使うメモ](https://qiita.com/PianoScoreJP/items/7ed172cd0e7846641e13)
 

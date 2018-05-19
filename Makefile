@@ -19,7 +19,7 @@ up: build
 
 .PHONY: login
 login:
-	docker exec -it pup_app /bin/bash
+	docker exec -it pup_app /bin/zsh
 
 .PHONY: login_db
 login_db:
