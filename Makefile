@@ -25,3 +25,9 @@ login:
 login_db:
 	docker exec -it pup_db /bin/bash
 
+.PHONY: setup
+setup:
+	npm i puppeteer
+	npm i mysql
+	npm i promise-mysql
+

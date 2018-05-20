@@ -1,0 +1,26 @@
+{
+  "name": "puppeteer-workspace",
+  "version": "1.0.0",
+  "description": "puppeteer-workspace ================================================================================",
+  "main": "index.js",
+  "dependencies": {
+    "mysql": "^2.15.0",
+    "promise-mysql": "^3.2.1",
+    "puppeteer": "^1.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiro4989/puppeteer-workspace.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jiro4989/puppeteer-workspace/issues"
+  },
+  "homepage": "https://github.com/jiro4989/puppeteer-workspace#readme"
+}
