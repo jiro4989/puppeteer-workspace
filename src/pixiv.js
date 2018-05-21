@@ -7,14 +7,14 @@ class Pixiv {
   /**
    * resolve は以降のあらゆるメソッドの起点のために実行するメソッドです。
    */
-  resolve() {
+  async resolve() {
     return Promise.resolve();
   }
 
   /**
    * close はブラウザを閉じます。
    */
-  close() {
+  async close() {
     return this.browser.close()
       .catch((err) => console.log("ブラウザを閉じられませんでした。"));
   }
@@ -23,45 +23,51 @@ class Pixiv {
    * login はログイン認証を通過します。
    * ログインを通過するために環境変数PIXIV_USER_IDとPIXIV_USER_PASSWORDを設定する必要があります。
    */
-  login() {
-    return Promise.resolve()
-      .then(() => this.page.goto("https://accounts.pixiv.net/login?lang=ja&source=pc&view_type=page&ref=wwwtop_accounts_index"))
-      .then(() => this.page.type('#LoginComponent > form > div.input-field-group > div:nth-child(1) > input[type="text"]', process.env.PIXIV_USER_ID))
-      .then(() => this.page.type('#LoginComponent > form > div.input-field-group > div:nth-child(2) > input[type="password"]', process.env.PIXIV_USER_PASSWORD))
-      .then(() => {
-        return Promise.all([
-          this.page.click('#LoginComponent > form > button'),
-          this.page.waitForNavigation({waitUntil: "domcontentloaded"})
-        ])
-      })
+  async login() {
+    await this.page.goto("https://accounts.pixiv.net/login?lang=ja&source=pc&view_type=page&ref=wwwtop_accounts_index");
+    await this.page.type('#LoginComponent > form > div.input-field-group > div:nth-child(1) > input[type="text"]', process.env.PIXIV_USER_ID);
+    await this.page.type('#LoginComponent > form > div.input-field-group > div:nth-child(2) > input[type="password"]', process.env.PIXIV_USER_PASSWORD);
+    return await this.clickJump('#LoginComponent > form > button')
       .catch(err => {
-        console.log("ログインに失敗しました。" + err);
+        console.log(`ログインに失敗しました。err=${err}`);
       });
   }
 
   /**
-   * gotoBookmarks はブックマーク一覧の画面に移動します。
+   * clickJump はボタンやURLのクリックでの画面遷移の際に使用します。
    */
-  gotoBookmarks() {
-    return Promise.all([
-      this.page.click('body > header > div > nav.navigation-list > ul.menus > li.bookmarks > a'),
+  async clickJump(selector) {
+    return await Promise.all([
+      this.page.click(selector),
       this.page.waitForNavigation({waitUntil: "domcontentloaded"})
     ]).catch((err) => {
-      console.log("ブックマークのページに遷移できませんでした。" + err)
+      console.log(`クリックでの画面遷移に失敗しました。selector=${selector}, err=${err}`)
     });
   }
 
   /**
-   * downloadBookmarks はブックマーク一覧をDLします。
+   * gotoBookmark はブックマーク一覧の画面に移動します。
    */
-  downloadBookmarks() {
-    // TODO
-    // const urls = await page.$$eval('.work', list => list.map(v => v.href));
-    // for (let url of urls) {
-    //   const illustPage = await browser.newPage();
-    //   await illustPage.goto(url);
-    //   await illustPage.waitFor(2000);
-    // }
+  async gotoBookmark() {
+    const url = "https://www.pixiv.net/bookmark.php";
+    return await this.page.goto(url).catch(err => console.log(`ブックマーク一覧ページに遷移できませんでした。url=${url} err=${err}`));
+  }
+
+  /**
+   * downloadBookmarks はブックマーク一覧をDLします。
+   * TODO
+   */
+  async downloadBookmarks() {
+    const urls = await this.page.$$eval('.work', list => list.map(v => v.href));
+    for (let url of urls) {
+      const illustPage = await this.browser.newPage();
+      await illustPage.goto(url);
+      const tags = await illustPage.$$eval('#wrapper > div.layout-a > div.layout-column-2 > div > section.work-tags > dl > dd > span > ul > li', tags => tags);
+      for (let tag of tags) {
+        console.log(`tag is ${tag}`);
+      }
+      await illustPage.waitFor(2000);
+    }
   }
 
 }

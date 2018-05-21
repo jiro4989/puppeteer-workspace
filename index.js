@@ -11,11 +11,12 @@ const Pixiv = require("./src/pixiv.js");
   });
   const page = await browser.newPage();
 
-  const pixiv = new Pixiv(browser, page);
-  pixiv.resolve()
-    .then(() => pixiv.login())
-    .then(() => pixiv.gotoBookmarks())
-    .catch((err) => {
-      console.log("アプリが死にました。");
-    })
+  try {
+    const pixiv = new Pixiv(browser, page);
+    await pixiv.login();
+    await pixiv.gotoBookmark();
+    await pixiv.downloadBookmarks();
+  } catch (e) {
+    console.log(`アプリが死にました。err=${e}`);
+  }
 })();
