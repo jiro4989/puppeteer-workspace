@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const Pixiv = require("./src/pixiv.js");
 
-(async () => {
+async function main() {
   const browser = await puppeteer.launch({
     headless: false,
     args: [
@@ -19,4 +19,6 @@ const Pixiv = require("./src/pixiv.js");
   } catch (e) {
     console.log(`アプリが死にました。err=${e}`);
   }
-})();
+}
+
+main();
