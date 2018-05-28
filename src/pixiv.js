@@ -50,6 +50,7 @@ class Pixiv {
    */
   async gotoBookmark() {
     const url = "https://www.pixiv.net/bookmark.php";
+    console.log(url);
     return await this.page.goto(url).catch(err => console.log(`ブックマーク一覧ページに遷移できませんでした。url=${url} err=${err}`));
   }
 
@@ -59,15 +60,7 @@ class Pixiv {
    */
   async downloadBookmarks() {
     const urls = await this.page.$$eval('.work', list => list.map(v => v.href));
-    for (let url of urls) {
-      const illustPage = await this.browser.newPage();
-      await illustPage.goto(url);
-      const tags = await illustPage.$$eval('#wrapper > div.layout-a > div.layout-column-2 > div > section.work-tags > dl > dd > span > ul > li', tags => tags);
-      for (let tag of tags) {
-        console.log(`tag is ${tag}`);
-      }
-      await illustPage.waitFor(2000);
-    }
+    return urls;
   }
 
 }

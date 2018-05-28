@@ -6,3 +6,5 @@ insert into users values ("suzuki", "p@ssword");
 insert into users values ("ikeda", "passw0rd");
 insert into users values ("yamada", "00000000");
 
+create table urls (id int auto_increment primary key, url varchar(1024) not null);
+
