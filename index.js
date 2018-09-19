@@ -3,8 +3,9 @@ const mysql = require('promise-mysql');
 const Pixiv = require("./src/pixiv.js");
 
 async function main() {
+  console.log("start");
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox'
@@ -13,6 +14,7 @@ async function main() {
   const page = await browser.newPage();
 
   try {
+    console.log("pixiv");
     const pixiv = new Pixiv(browser, page);
     await pixiv.login();
     await pixiv.gotoBookmark();

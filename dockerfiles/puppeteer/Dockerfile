@@ -41,10 +41,8 @@ RUN apt-get update \
       xdg-utils \
       wget
 
-RUN apt-get install -y zsh
-
 WORKDIR /app
-RUN npm install puppeteer
-RUN npm install mysql
+RUN npm install puppeteer mysql
+RUN npm install promise-mysql
 
-ENTRYPOINT ["/bin/zsh"]
+CMD ["node", "index.js"]

@@ -25,6 +25,6 @@ services:
       DB_PASSWORD: "password"
       DB_DATABASE: "test_db"
     volumes:
-      - .:/opt/data-volume
-      - ./script:/app/script
-    working_dir: "/opt/data-volume"
+      - ./index.js:/app/index.js
+      - ./src:/app/src
+    working_dir: "/app"

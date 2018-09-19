@@ -17,6 +17,10 @@ build: clean
 up: build
 	docker-compose up -d
 
+.PHONY: upnd
+upnd: build
+	docker-compose up
+
 .PHONY: login
 login:
 	docker exec -it pup_app /bin/zsh
